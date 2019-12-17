@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_deletlist.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 21:38:41 by afaragi           #+#    #+#             */
-/*   Updated: 2019/12/16 18:54:15 by afaragi          ###   ########.fr       */
+/*   Created: 2019/12/16 20:48:47 by afaragi           #+#    #+#             */
+/*   Updated: 2019/12/16 20:54:19 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_deletlist(t_list **alst, void (*del)(void *, size_t ,void *))
 {
+	t_list	*li;
+
 	if (alst)
 	{
-		del((*alst)->content, (*alst)->content_size);
-		ft_memdel((void**)alst);
+		while (*alst)
+		{
+			li = (*alst)->next;
+			ft_deletone(&(*alst), del);
+			*alst = li;
+		}
 	}
 }

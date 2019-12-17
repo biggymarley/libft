@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:13:51 by afaragi           #+#    #+#             */
-/*   Updated: 2019/11/21 02:24:18 by afaragi          ###   ########.fr       */
+/*   Updated: 2019/12/16 21:05:55 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ typedef	struct		s_list
 	char			*content;
 	struct stat st;
 	size_t			content_size;
+	char			*path;
 	struct s_list	*next;
 }					t_list;
 
 void				ft_putnbr(int n);
-void				*ft_memcc2y(void *dest, const void *src, int c, size_t n);
+void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				ft_bzero(void *dst, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 void				*ft_memset(void *s, int c, size_t n);
@@ -66,8 +67,8 @@ void				ft_memdel(void **ap);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
-void				ft_striter(char *s, void (*f)(char *));
-char				*ft_strmap(char const *s, char (*f)(char));
+void				ft_striter(char *s, void (*fu)(char *));
+char				*ft_strmap(char const *s, char (*fu)(char));
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strtrim(char const *s);
@@ -81,8 +82,8 @@ int					ft_strnequ(char const *s1, char const *s2, size_t e);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void				ft_striteri(char *s, void (*fu)(unsigned int, char *));
+char				*ft_strmapi(char const *s, char (*fu)(unsigned int, char));
 char				*ft_itoa(int nb);
 void				ft_cremplire(char *e, char const *s, char c);
 int					ft_countw(char const *s, char c);
@@ -90,12 +91,14 @@ int					ft_ctc(char const *s, char c);
 int					ft_count_size(char const *s);
 void				ft_remplir(char *dest, char const *src, int start, int end);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-t_list				*ft_newlst(char *content, size_t content_size , struct stat st);
+t_list				*ft_newlst(char *content, size_t content_size , struct stat st, char *path);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void				ft_lstiter(t_list *lst, void (*fu)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*fu)(t_list *elem));
 char				*ft_isspace(const char *str);
 int					ft_intcount(int n);
 t_list				*ft_lstpush(t_list **alst, t_list *new);
+void				ft_deletlist(t_list **alst, void (*del)(void *, size_t, void *));
+void				ft_deletone(t_list **alst, void (*del)(void *, size_t, void *));
 #endif
